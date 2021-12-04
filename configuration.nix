@@ -25,6 +25,15 @@
     };
   };
 
+  boot.initrd.supportedFilesystems = [ "btrfs" ];
+
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; randomEncryption.enable = true; }
+  ];
+
+  fileSystems."/".options = [ "compress=zstd" ];
+  fileSystems."/home".options = [ "compress=zstd" ];
+
   networking.hostName = "omega"; # Define your hostname.
 
   # Set your time zone.
@@ -117,6 +126,7 @@
       htop
       wget
       neofetch
+      btrfs-progs
     ];
     shells = with pkgs; [ bashInteractive zsh ];
   };
