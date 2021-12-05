@@ -28,7 +28,7 @@
   boot.initrd.supportedFilesystems = [ "btrfs" ];
 
   swapDevices = [
-    { device = "/dev/disk/by-label/swap"; randomEncryption.enable = true; }
+    { device = "/dev/disk/by-partlabel/cryptswap"; randomEncryption.enable = true; }
   ];
 
   fileSystems."/".options = [ "compress=zstd" ];
