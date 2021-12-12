@@ -4,7 +4,9 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -53,6 +55,7 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = false;
+    packageOverrides = pkgs: { unstable = unstable; };
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -125,13 +128,22 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-      neovim
-      htop
-      wget
-      neofetch
       btrfs-progs
+      curl
+      file
+      gnumake
+      htop
+      killall
+      neofetch
+      unstable.neovim
+      ripgrep
+      tmux
+      tree
+      usbutils
+      wget
     ];
     shells = with pkgs; [ bashInteractive zsh ];
+    variables = { EDITOR = "nvim"; };
   };
 
 

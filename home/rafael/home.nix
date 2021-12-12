@@ -9,6 +9,11 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = false;
 
+  home.packages = with pkgs; [
+    gcc
+    rnix-lsp
+  ];
+
   xdg = {
     enable = true;
     userDirs = {
