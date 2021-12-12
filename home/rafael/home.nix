@@ -17,6 +17,17 @@
     };
   };
 
+  programs.neovim = {
+    viAlias = true;
+  };
+
+  xdg.configFile.nvim = {
+    source = ./config/neovim;
+    recursive = true;
+  };
+
+  home.sessionVariables.EDITOR = "nvim";
+
   programs.git = {
     enable = true;
     userName = "rafaelrc7";
