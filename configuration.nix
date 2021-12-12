@@ -99,19 +99,41 @@ in {
   };
 
   # Enable the X11 windowing system.
-  # services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+
+    displayManager = {
+      defaultSession = "none+awesome";
+    };
+
+    windowManager.awesome = {
+      enable = true;
+      luaModules = with pkgs.luaPackages; [
+        luarocks
+      ];
+    };
+
+  };
 
 
   # Configure keymap in X11
-  # services.xserver.layout = "br";
-  # services.xserver.xkbVariant = "abnt2";
+  services.xserver.layout = "br";
+  services.xserver.xkbVariant = "abnt2";
+
+  # Enable sound.
+  security.rtkit.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    media-session.enable = true;
+  };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
