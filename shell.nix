@@ -4,6 +4,7 @@
   environment.systemPackages = with pkgs; [
       zsh-vi-mode
       zsh-nix-shell
+      zsh-git-prompt
   ];
 
   programs.zsh = {
@@ -49,17 +50,19 @@
 
     promptInit =
     ''
+      autoload -U colors && colors
+
       prompt() {
         if (($+IN_NIX_SHELL)); then
           PS1="%B%F{blue}nix-shell:%F{cyan}%3~/ %(!.%F{red}#.%F{28}$)%b%f "
         else
           PS1="%B%F{cyan}%3~/ %(!.%F{red}#.%F{28}$)%b%f "
         fi
+
+        RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f $(git_super_status)"
       }
 
       precmd_functions+=prompt
-      autoload -U colors && colors
-      RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f"
     '';
 
     interactiveShellInit =
@@ -69,6 +72,7 @@
       sources = with pkgs; [
         "${zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
         "${zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh"
+        "${zsh-git-prompt}/share/zsh-git-prompt/zshrc.sh"
       ];
       source = map (source: "source ${source}") sources;
       plugins = concatStringsSep "\n" (source);
