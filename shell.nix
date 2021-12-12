@@ -51,6 +51,7 @@
     promptInit =
     ''
       autoload -U colors && colors
+      GIT_PROMPT_EXECUTABLE="haskell"
 
       prompt() {
         if (($+IN_NIX_SHELL)); then
