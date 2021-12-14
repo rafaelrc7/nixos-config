@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     gcc
     rnix-lsp
+    sumneko-lua-language-server
   ];
 
   xdg = {
@@ -37,7 +38,7 @@
     enable = true;
     userName = "rafaelrc7";
     userEmail = "rafaelrc7@gmail.com";
-    extraConfig.core.init.defaultBranch = "master";
+    extraConfig.init.defaultBranch = "master";
   };
 
   # This value determines the Home Manager release that your
