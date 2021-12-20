@@ -157,7 +157,7 @@ in {
       htop
       killall
       neofetch
-      unstable.neovim
+      neovim
       ripgrep
       tmux
       tree

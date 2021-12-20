@@ -1,8 +1,17 @@
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config.allowUnfree = true; };
+in {
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = false;
+    packageOverrides = pkgs: { unstable = unstable; };
+  };
+
   home.packages = with pkgs; [
-    neovim
+    unstable.neovim
     gcc
     rnix-lsp
     sumneko-lua-language-server
