@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./nvim.nix ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "rafael";
@@ -9,12 +11,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = false;
 
-  home.packages = with pkgs; [
-    gcc
-    rnix-lsp
-    sumneko-lua-language-server
-  ];
-
   xdg = {
     enable = true;
     userDirs = {
@@ -22,17 +18,6 @@
       createDirectories = true;
     };
   };
-
-  programs.neovim = {
-    viAlias = true;
-  };
-
-  xdg.configFile.nvim = {
-    source = ./config/neovim;
-    recursive = true;
-  };
-
-  home.sessionVariables.EDITOR = "nvim";
 
   programs.git = {
     enable = true;
