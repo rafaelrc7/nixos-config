@@ -55,10 +55,12 @@
 
       prompt() {
         if (($+IN_NIX_SHELL)); then
-          PS1="%B%F{blue}nix-shell:%F{cyan}%3~/ %(!.%F{red}#.%F{28}$)%b%f "
+          PS1="%F{blue}(nix-sh) "
         else
-          PS1="%B%F{cyan}%3~/ %(!.%F{red}#.%F{28}$)%b%f "
+          PS1=""
         fi
+
+        PS1="%B''${PS1}%(!.%F{red}root.%F{28}%n)%F{blue}:%F{cyan}%3~/ %(!.%F{red}#.%F{28}$)%b%f "
 
         RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f $(git_super_status)"
       }
