@@ -133,7 +133,27 @@ in {
   };
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services = {
+    printing = {
+      enable = true;
+      drivers = [ pkgs.epson-escpr ];
+      browsing = true;
+      startWhenNeeded = true;
+    };
+
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      publish.enable = true;
+      publish.addresses = true;
+      publish.userServices = true;
+    };
+  };
+
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.epson-escpr ];
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
@@ -171,11 +191,11 @@ in {
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
@@ -185,10 +205,10 @@ in {
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ ];
+  networking.firewall.allowedUDPPorts = [ ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
