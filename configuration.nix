@@ -107,6 +107,8 @@ in {
   services.xserver = {
     enable = true;
 
+    # videoDrivers = [ "nvidia" ];
+
     displayManager = {
       defaultSession = "none+awesome";
     };
