@@ -11,6 +11,28 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = false;
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+
+  home.packages = with pkgs; [
+    nur.repos.wolfangaukang.librewolf
+    unclutter
+    picom
+    flameshot
+    lxsession
+    pcmanfm
+    kitty
+    keepassxc
+    thunderbird
+    discord
+    slack
+    picom
+    libsForQt5.okular
+  ];
+
   xdg = {
     enable = true;
     userDirs = {
