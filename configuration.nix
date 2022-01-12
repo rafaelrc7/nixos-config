@@ -55,7 +55,12 @@ in {
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = false;
-    packageOverrides = pkgs: { unstable = unstable; };
+    packageOverrides = pkgs: {
+      unstable = unstable;
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;
+      };
+    };
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -183,11 +188,16 @@ in {
       tree
       usbutils
       wget
+      (steam.override { withJava = true; })
     ];
     shells = with pkgs; [ bashInteractive zsh ];
     variables = { EDITOR = "nvim"; };
   };
 
+  programs = {
+    steam.enable = true;
+    java.enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
